@@ -21,64 +21,70 @@ const Share = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Button
-          title="Dismiss"
-          onPress={() => {
-            ShareMenuReactView.dismissExtension();
-          }}
-          style={styles.destructive}
-        />
-        <Button
-          title={sending ? "Sending..." : 'Send'}
-          onPress={() => {
-            setSending(true);
-
-            setTimeout(() => {
+    <View style={styles.modal}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Button
+            title="Dismiss"
+            onPress={() => {
               ShareMenuReactView.dismissExtension();
-            }, 3000);
-          }}
-          disabled={sending}
-          style={sending ? styles.sending : styles.send}
-        />
-      </View>
-      {sharedMimeType === 'text/plain' && <Text>{sharedData}</Text>}
-      {sharedMimeType.startsWith('image/') && (
-        <Image
-          style={styles.image}
-          resizeMode="contain"
-          source={{uri: sharedData}}
-        />
-      )}
-      <View style={styles.buttonGroup}>
-        <Button
-          title="Dismiss with Error"
-          onPress={() => {
-            ShareMenuReactView.dismissExtension('Dismissed with error');
-          }}
-          style={styles.destructive}
-        />
-        <Button
-          title="Continue In App"
-          onPress={() => {
-            ShareMenuReactView.continueInApp();
-          }}
-        />
-        <Button
-          title="Continue In App With Extra Data"
-          onPress={() => {
-            ShareMenuReactView.continueInApp({hello: 'from the other side'});
-          }}
-        />
+            }}
+            style={styles.destructive}
+          />
+          <Button
+            title={sending ? "Sending..." : 'Send'}
+            onPress={() => {
+              setSending(true);
+
+              setTimeout(() => {
+                ShareMenuReactView.dismissExtension();
+              }, 3000);
+            }}
+            disabled={sending}
+            style={sending ? styles.sending : styles.send}
+          />
+        </View>
+        {sharedMimeType === 'text/plain' && <Text>{sharedData}</Text>}
+        {sharedMimeType.startsWith('image/') && (
+          <Image
+            style={styles.image}
+            resizeMode="contain"
+            source={{uri: sharedData}}
+          />
+        )}
+        <View style={styles.buttonGroup}>
+          <Button
+            title="Dismiss with Error"
+            onPress={() => {
+              ShareMenuReactView.dismissExtension('Dismissed with error');
+            }}
+            style={styles.destructive}
+          />
+          <Button
+            title="Continue In App"
+            onPress={() => {
+              ShareMenuReactView.continueInApp();
+            }}
+          />
+          <Button
+            title="Continue In App With Extra Data"
+            onPress={() => {
+              ShareMenuReactView.continueInApp({hello: 'from the other side'});
+            }}
+          />
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  modal: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+  },
+  container: {
     backgroundColor: 'white',
   },
   header: {
